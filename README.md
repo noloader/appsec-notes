@@ -1,6 +1,6 @@
 ## AppSec Field Notes
 
-This document is a collection of field notes to help developers use the security controls and frameworks like OWASP and ESAPI. The notes are from our experience with working with developers at our day jobs. The information is presented in cookbook fashion to promote quick lookups and easy adoption.
+This document is a collection of field notes to help developers write safe code using a platform's security controls and frameworks like OWASP and ESAPI. The notes are from our experience with working with developers at our day jobs. The information is presented in cookbook fashion to promote quick lookups and easy adoption.
 
 If you want to contribute to the book then clone the repository, make pull requests and open bug reports. Techinical editing is especially welcomed. We would be happy to take contributions and add additional authors.
 
