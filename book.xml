@@ -1,37 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book>
-  <title>Using OWASP Security Controls</title>
-  <subtitle>The Unofficial Cookbook</subtitle>
+  <title>Application Security Field Notes</title>
+  <subtitle>A Developers Cookbook for Writing Secure Code</subtitle>
   <bookinfo>
     <edition>1</edition>
     <authorgroup>
-      <!--
-      <author>
-        <firstname>Jim</firstname>
-        <surname>Manico</surname>
-      </author>
-      -->
-      <author>
-        <firstname>Omair</firstname>
-        <surname>Manzoor</surname>
-      </author>
-      <author>
-        <firstname>Kevin</firstname>
-        <surname>Wall</surname>
-      </author>
       <author>
         <firstname>Jeffrey</firstname>
         <surname>Walton</surname>
       </author>
     </authorgroup>
-    <!--
     <othercredit>
-      <firstname>John</firstname>
-      <surname>Doe</surname>
-      <contrib>Extensive review and rough drafts</contrib>
+      <firstname>Omair</firstname>
+      <surname>Manzoor</surname>
+      <contrib>Feedback and Review</contrib>
     </othercredit>
--->
+    <othercredit>
+      <firstname>Jim</firstname>
+      <surname>Manico</surname>
+      <contrib>Feedback and Review</contrib>
+    </othercredit>
+    <othercredit>
+      <firstname>Kevin</firstname>
+      <surname>Wall</surname>
+      <contrib>Feedback and Review</contrib>
+    </othercredit>
     <edition>Version 1.0 built using DocBook v4.5</edition>
     <pubdate>
       <!-- format is July 1, 2022 -->

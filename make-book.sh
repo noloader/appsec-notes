@@ -3,7 +3,7 @@
 # Run the Spell Checker with make-spell.sh
 
 # Name without extensions. The final artifact includes the PDF extension.
-BOOKNAME=owasp-cookbook
+BOOKNAME=appsec-notes
 
 if [[ ! "$(command -v xmllint 2>/dev/null)" ]]
 then
