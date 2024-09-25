@@ -4,6 +4,6 @@ This document is a collection of field notes to help developers write safe code 
 
 If you want to contribute to the book then clone the repository, make pull requests and open bug reports. Techinical editing is especially welcomed. We would be happy to take contributions and add additional authors.
 
-If you only want the field notes then download esapi-cookbook.pdf. If you find errors or omissions then make pull requests and open bug reports.
+If you only want the field notes then download appsec-notes.pdf. If you find errors or omissions then make pull requests and open bug reports.
 
-The book is built using DocBook. The instructions to setup DocBook on Ubuntu 16.04 - 22.10 with Apache FOP 2.8 are available at https://github.com/noloader/Dockbook-Install. The instructions include Fedora for Red Hat fans.
+The book is built using DocBook. The instructions to setup DocBook on Ubuntu and Fedora with Apache FOP 2.9 are available at https://github.com/noloader/Dockbook-Install.
