@@ -2,7 +2,7 @@
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
 <book>
   <title>Application Security Field Notes</title>
-  <subtitle>A Developers Cookbook for Writing Secure Code</subtitle>
+  <subtitle>A Developers Cookbook for Writing Safer Applications</subtitle>
   <bookinfo>
     <edition>1</edition>
     <authorgroup>
