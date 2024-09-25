@@ -7,6 +7,7 @@ Base64
 
 Chinook
 Northwind
+jQuery
 
 HTML
 html
@@ -76,9 +77,8 @@ remediation
 precompiled
 sanitization
 remediations
-
+tokenize
 userdata
-balance
 
 CN
 cn
@@ -103,6 +103,7 @@ SUTF1
 TUTF1
 UTF1SUBSET
 
+ProcessBuilder
 DefaultEncoder
 PreparedStatement
 CallableStatement
