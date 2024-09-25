@@ -272,7 +272,7 @@ SqliteDataReader results = command.executeReader( );</programlisting>
   </section>
   <section id="sql_inj_encoding">
     <title>Encoding</title>
-    <para>Encoding translates some dangerous characters into a benign representations for storage in a database. Each database will usually provide rules to encode dangerouse characters. The ESAPI library will provide encoders for the database, like Oracle and MySQL.</para>
+    <para>Encoding translates some dangerous characters into a benign representations for storage in a database. Each database will usually provide rules to encode dangerous characters. The ESAPI library will provide encoders for the database, like Oracle and MySQL.</para>
     <para>Encoding is an anti-pattern and should not be used because it is an incomplete remediation. Instead, you should bind the user supplied data using Prepared Statements or Parameterized Queries.</para>
     <para>The table below shows safe ways to encode dangerous characters in ANSI mode.</para>
     <table frame="all">
