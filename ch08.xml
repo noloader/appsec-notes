@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.5//EN" "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd">
+<chapter id="ch08_command_injection">
+  <title>Command Injection</title>
+  <para><indexterm><primary>Command Injection</primary></indexterm>Creating operating system processes to perform work is a common task. If a process is created using attacker supplied data, then the code could be vulnerable to a command injection. The vulnerability is a server-side injection attack and occurs when the attacker inserts malicious code into the command line arguments used to start a process. This chapter of the book will show you how to safely create processes and avoid command injections.</para>
+  <section id="cmd_inj_documentation" xreflabel="Command Injection Documentation">
+    <title>Documentation</title>
+    <para><indexterm><primary>Command Injection</primary><secondary>Documentation</secondary></indexterm>Documentation for Java <systemitem>ProcessBuilder</systemitem> class is located at <ulink url="https://docs.oracle.com/javase/8/docs/api/java/lang/ProcessBuilder.html">Class ProcessBuilder</ulink>.</para>
+    <para>Documentation for the less-secure <systemitem>Runtime</systemitem> class can be found at <ulink url="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html"><emphasis>Class Runtime</emphasis></ulink>.</para>
+  </section>
+  <section id="cmd_inj_strategy" xreflabel="Command Injection Strategy">
+    <title>Strategy</title>
+    <para><indexterm><primary>Command Injection</primary><secondary>Strategy</secondary></indexterm>The primary defense against Command Injection in is creating processes using the <systemitem>ProcessBuilder</systemitem> class. The <systemitem>ProcessBuilder</systemitem> class requires a list or array of arguments, and <systemitem>ProcessBuilder</systemitem> does not tokenize or interpret the command arguments, so it is safer than the <systemitem>Runtime</systemitem> class.</para>
+  </section>
+  <section id="cmd_inj_vulnerable_exec" xreflabel="Vulnerable Execution">
+    <title>Vulnerable Execution</title>
+    <para>An example of a vulnerable execution is shown below. The code is vulnerable due to simple concatenation without any controls on the user supplied input.</para>
+    <!--
+    <example id="cmd_inj_ex_vulnerable_exec" xreflabel="Vulnerable Execution, Pwned">
+      <title>Vulnerable Execution, Pwned</title>
+      <programlisting><?code-font-size 75% ?>String lastName = request.getParameter("lastName");
+
+String query = "SELECT FirstName,LastName FROM Customer WHERE LastName = " + lastName;
+Statement statement = connection.createStatement(...);
+
+ResultSet results = statement.executeQuery(query);</programlisting>
+    </example>
+    -->
+  </section>
+</chapter>
