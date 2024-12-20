@@ -10,21 +10,52 @@
   </section>
   <section id="cmd_inj_strategy" xreflabel="Command Injection Strategy">
     <title>Strategy</title>
-    <para><indexterm><primary>Command Injection</primary><secondary>Strategy</secondary></indexterm>The primary defense against Command Injection in is creating processes using the <systemitem>ProcessBuilder</systemitem> class. The <systemitem>ProcessBuilder</systemitem> class requires a list or array of arguments, and <systemitem>ProcessBuilder</systemitem> does not tokenize or interpret the command arguments, so it is safer than the <systemitem>Runtime</systemitem> class.</para>
+    <para><indexterm><primary>Command Injection</primary><secondary>Strategy</secondary></indexterm>The primary defense against Command Injection is to avoid shelling out to external programs with untrusted input, and use Java APIs instead. If you can't avoid external programs, then create the process using the <systemitem>ProcessBuilder</systemitem> class. The <systemitem>ProcessBuilder</systemitem> class requires a list or array of arguments, and <systemitem>ProcessBuilder</systemitem> does not tokenize or interpret the command arguments, so it is safer than the <systemitem>Runtime</systemitem> class.</para>
   </section>
   <section id="cmd_inj_vulnerable_exec" xreflabel="Vulnerable Execution">
     <title>Vulnerable Execution</title>
-    <para>An example of a vulnerable execution is shown below. The code is vulnerable due to simple concatenation without any controls on the user supplied input.</para>
-    <!--
+    <para>An example of a command injection is shown below. The code is vulnerable due to lack of validation on the user supplied input followed by a bad interaction with <systemitem>Runtime.exec</systemitem>.</para>
     <example id="cmd_inj_ex_vulnerable_exec" xreflabel="Vulnerable Execution, Pwned">
       <title>Vulnerable Execution, Pwned</title>
-      <programlisting><?code-font-size 75% ?>String lastName = request.getParameter("lastName");
+      <programlisting><?code-font-size 75% ?>Scanner sc=new Scanner(System.in);
+System.out.println("Enter Username");
+String user = sc.nextLine();
 
-String query = "SELECT FirstName,LastName FROM Customer WHERE LastName = " + lastName;
-Statement statement = connection.createStatement(...);
+String path = "C:\\Users\\" + user;
+String command = "cmd.exe /c dir " + path;
 
-ResultSet results = statement.executeQuery(query);</programlisting>
+Process process = Runtime.getRuntime().exec(command);</programlisting>
     </example>
-    -->
+    <para>The problem with the code above is <systemitem>user</systemitem> is controlled by the attacker. If the attacker provides a username of <systemitem>jdoe &amp; rmdir /Q /S C:\Windows</systemitem>, then bad things will happen.</para>
+  </section>
+  <section id="cmd_inj_safer_exec" xreflabel="ch08_cmd_inj_safer_exec">
+    <title>Safer Execution</title>
+    <para>When possible, you should use the Java APIs to perform the task. To fix the code provided in <xref linkend="cmd_inj_ex_vulnerable_exec"/>, the <systemitem>File</systemitem> class should be used instead as shown below.</para>
+    <example id="cmd_inj_ex_api" xreflabel="Safer Execution, Java API">
+      <title>Safer Execution, Java API</title>
+      <programlisting><?code-font-size 75% ?>Scanner sc=new Scanner(System.in);
+System.out.println("Enter Username");
+String user = sc.nextLine();
+ValidateUsername(user);
+
+String path = "C:\\Users\\" + user;
+File directory = new File(path);
+File[] files = directory.listFiles();</programlisting>
+    </example>
+    <para>As discussed in <xref linkend="ch02_input_validation"/>, you must canonicalize and validate the user supplied input, and that is what <systemitem>ValidateUsername</systemitem> does.</para>
+    <para>If you cannot use Java APIs, and you must create a process for an external program, then use <systemitem>ProcessBuilder</systemitem> and the overload which takes a <systemitem>String</systemitem> array:</para>
+    <programlisting><?code-font-size 75% ?>public ProcessBuilder(String... command)</programlisting>
+    <example id="cmd_inj_ex_pb_start" xreflabel="Safer Execution, ProcessBuilder">
+      <title>Safer Execution, ProcessBuilder</title>
+      <programlisting><?code-font-size 75% ?>Scanner sc=new Scanner(System.in);
+System.out.println("Enter Username");
+String user = sc.nextLine();
+ValidateUsername(user);
+
+String path = "C:\\Users\\" + user;
+String[] command = { "cmd.exe", "/c", "dir", path };
+
+Process process = ProcessBuilder(command).start();</programlisting>
+    </example>
   </section>
 </chapter>
