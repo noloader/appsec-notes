@@ -148,7 +148,7 @@ String validated = validateParameterValue(UNTRUSTED);
 ...
 
 &lt;!-- Prepare value for repsonse in web page --&gt;
-String encoded = ESAPI.encoder().encodeForURL(validated);</programlisting>
+String encoded = ESAPI.encoder().encodeForHTML(validated);</programlisting>
     </example>
     <para>If you have to call <systemitem>canonicalize</systemitem> multiple times, then it could be an attacker supplying data already encoded to evade detection. If you find you need to call <systemitem>canonicalize</systemitem>, then consider returning an error. Don't allow an attacker to have multiple attempts on your code.</para>
   </section>
@@ -182,7 +182,7 @@ String encoded = ESAPI.encoder().encodeForURL(validated);</programlisting>
        value="&lt;%= ESAPI.encoder().encodeForHTMLAttribute(UNTRUSTED) %&gt;" /&gt;</programlisting>
     </example>
   </section>
-  <section id="xss_html_body_vsattrib">
+  <section id="xss_html_body_vs_attrib">
     <title>HTML Body vs Attribute</title>
     <para>The main difference between <systemitem>encodeForHTML</systemitem> and <systemitem>encodeForHTMLAttribute</systemitem> is, <systemitem>encodeForHTML</systemitem> does not encode the space character, while <systemitem>encodeForHTMLAttribute</systemitem> encodes the space character as <systemitem>&amp;#x20</systemitem>.</para>
     <para>An example of HTML Body vs HTML Attribute using the ESAPI encoder is shown below. Notice how the space is handled between the words <emphasis>Hello</emphasis> and <emphasis>World</emphasis>.</para>
@@ -193,6 +193,23 @@ String encoded = ESAPI.encoder().encodeForURL(validated);</programlisting>
 
 $ESAPI.encoder().encodeForHTMLAttribute("&lt;h1&gt;Hello World!&lt;/h1&gt;");
 &amp;lt;h1&amp;gt;Hello&amp;#x20;World!&amp;lt;/h1&amp;gt;</programlisting>
+    </example>
+  </section>
+  <section id="xss_html_hyperlink_tag">
+    <title>HTML Hyperlink Tag</title>
+    <para><indexterm><primary>Cross Site Scripting</primary><secondary>Hyperlink</secondary></indexterm><indexterm><primary>XSS</primary><secondary>Hyperlink</secondary></indexterm>A HTML hyperlink tag requires two different encodings. One encoding is for the URL or URI component, and the second is for the HTML attribute. Note that the sample code always uses <systemitem>forURIComponent</systemitem>. <systemitem>forURIComponent</systemitem> is safe in all relevant contexts, unlike <systemitem>forURI</systemitem>.</para>
+    <example id="xss_ex_html_hyperlink_tag_owasp_1">
+      <title>HTML Hyperlink Tag, OWASP Encoder</title>
+      <programlisting><?code-font-size 75% ?>String url = "/orders/" + Encode.forURIComponent(UNTRUSTED) + "&amp;order=1";
+
+&lt;a href="&lt;%= Encode.forHtmlAttribute(url) %&gt;"&gt;Click Me&lt;/a&gt;</programlisting>
+    </example>
+    <para>If the untrusted data is a fragment of a URL, then use the component encoder as shown below.</para>
+    <example id="xss_ex_html_hyperlink_tag_owasp_2">
+      <title>HTML Hyperlink Tag, URL Fragment, OWASP Encoder</title>
+      <programlisting><?code-font-size 75% ?>String url = "/search?value=" + Encode.forURIComponent(UNTRUSTED) + "&amp;order=1";
+
+&lt;a href="&lt;%= Encode.forHtmlAttribute(url) %&gt;"&gt;Click Me&lt;/a&gt;</programlisting>
     </example>
   </section>
   <section id="xss_js">
@@ -266,6 +283,7 @@ $ESAPI.encoder().encodeForHTMLAttribute("&lt;h1&gt;Hello World!&lt;/h1&gt;");
   </section>
   <section id="xss_url">
     <title>Universal Resource Locator</title>
+    <!-- See OWASP Encode.forURI() docs. It is dangerous. Encode.forURIComponent() is safe. -->
     <para><indexterm><primary>Cross Site Scripting</primary><secondary>URL</secondary></indexterm><indexterm><primary>XSS</primary><secondary>URL</secondary></indexterm>The primary defense against XSS in a Universal Resource Locator (URL) is URL escaping or percent encoding. Examples of encoding using various encoders are shown below.</para>
     <example id="xss_ex_url_owasp">
       <title>URL, OWASP Encoder</title>
